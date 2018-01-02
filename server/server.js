@@ -5,8 +5,6 @@ var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./models/todo');
 var {User} = require('./models/user');
 
-var dateToday = new Date()
-var dateNumber = Math.round((dateToday.getTime() / 1000)); // to unix timestamp
 
 var app = express();
 
@@ -31,8 +29,7 @@ app.listen(3000, () => {
   console.log('Started on port 3000');
 });
 
-
-
+module.exports = {app};
 
 
 
