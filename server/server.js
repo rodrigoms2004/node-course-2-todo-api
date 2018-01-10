@@ -8,6 +8,7 @@ var {User} = require('./models/user');
 
 
 var app = express();
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json()); // middleware
 
@@ -51,8 +52,8 @@ app.get('/todos/:id', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Started on port 3000');
+app.listen(port, () => {
+  console.log(`Started up at port ${port}`);
 });
 
 module.exports = {app};
@@ -60,7 +61,7 @@ module.exports = {app};
 
 
 
-
+// https://enigmatic-dawn-35678.herokuapp.com/ | https://git.heroku.com/enigmatic-dawn-35678.git
 
 
 
