@@ -43,10 +43,28 @@ app.get('/todos/:id', (req, res) => {
 
   Todo.findById(id).then((todo) => {
     if(!todo) {
-      return res.status(404).send()
+      return res.status(404).send();
     }
 
     res.send({todo});
+  }).catch((e) => {
+    res.status(400).send();
+  });
+});
+
+app.delete('/todos/:id', (req, res) => {
+  var id = req.params.id;
+
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+
+  Todo.findByIdAndRemove(id).then((todo) => {
+    if(!todo) {
+      return res.status(404).send();
+    }
+
+    res.status(200).send(todo);
   }).catch((e) => {
     res.status(400).send();
   });
@@ -59,9 +77,6 @@ app.listen(port, () => {
 module.exports = {app};
 
 
-
-
-// https://enigmatic-dawn-35678.herokuapp.com/ | https://git.heroku.com/enigmatic-dawn-35678.git
 
 
 
