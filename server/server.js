@@ -11,7 +11,6 @@ var {User} = require('./models/user');
 var {authenticate} = require('./middleware/authenticate');
 
 var app = express();
-const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json()); // middleware
 
@@ -155,57 +154,5 @@ app.delete('/users/me/token', authenticate, (req, res) => {
   })
 });
 
-app.listen(port, () => {
-  console.log(`Started up at port ${port}`);
-});
-
-module.exports = {app};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// var newUser = new User({
-//   email: 'rodrigoms2004@gmail.com'
-// });
-//
-// newUser.save().then((doc) => {
-//   console.log(JSON.stringify(doc, undefined, 2));
-// }, (e) => {
-//   console.log('Unable to save it', e);
-// });
-//
-// var dateToday = new Date()
-// var dateNumber = Math.round((dateToday.getTime() / 1000)); // to unix timestamp
-// var dateFormat = new Date(dateNumber * 1000);
-
-// var otherTodo = new Todo({
-//   text: true
-//   // text: 'Feed the cat',
-//   // completed: true,
-//   // completedAt: dateNumber
-// });
-
-// otherTodo.save().then((doc) => {
-//   console.log(JSON.stringify(doc, undefined, 2));
-// }, (e) => {
-//   console.log('Unable to save it', e);
-// });
+// if use {app} get error in /server/bin/www.js
+module.exports = app;
