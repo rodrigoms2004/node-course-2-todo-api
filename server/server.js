@@ -14,6 +14,12 @@ var app = express();
 
 app.use(bodyParser.json()); // middleware
 
+// middleware, used to show where user is going...
+app.use((req, res, next) => {
+  console.log('I was here: ', req.url)
+  next();
+});
+
 // POST /todos
 app.post('/todos', authenticate, (req, res) => {
   var todo = new Todo({
