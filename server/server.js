@@ -20,6 +20,9 @@ app.use((req, res, next) => {
   next();
 });
 
+// ROUTES
+app.use('/api', require('./route/api'));
+
 // POST /todos
 app.post('/todos', authenticate, (req, res) => {
   var todo = new Todo({
@@ -147,7 +150,7 @@ app.post('/users/login', (req, res) => {
     return user.generateAuthToken().then((token) => {
       res.header('x-auth', token).send(user);
     });
-  }).catch((e) =>{
+  }).catch((e) => {
     res.status(400).send();
   });
 });
@@ -157,7 +160,7 @@ app.delete('/users/me/token', authenticate, (req, res) => {
     res.status(200).send();
   }, () => {
     response.status(400).send();
-  })
+  });
 });
 
 // if use {app} get error in /server/bin/www.js
