@@ -11,34 +11,16 @@ if (env === 'development' || env === 'test') {
   });
 }
 
-
-// heroku config
-// heroku config:set NAME=Rodrigo
-// config:get NAME
-// heroku config:unset NAME
-
-
-// heroku config:set JWT_SECRET=adsfpoij234jdspoijsdf
-// heroku config
-
 // // config.json
 // {
 //   "test": {
 //     "PORT": 3000,
-//     "MONGODB_URI": "mongodb://172.16.105.134:27017/TodoAppTest",
+//     "MONGODB_URI": "mongodb://localhost:27017/TodoAppTest",
 //     "JWT_SECRET": "dokokdow2223o9d939eo9k"
 //   },
 //   "development": {
 //     "PORT": 3000,
-//     "MONGODB_URI": "mongodb://172.16.105.134:27017/TodoApp",
+//     "MONGODB_URI": "mongodb://localhost:27017/TodoApp",
 //     "JWT_SECRET": "ssdlmdlddfffffefffdffd"
 //   }
-// }
-
-// if (env === 'development') {
-//   process.env.PORT = 3000;
-//   process.env.MONGODB_URI = 'mongodb://172.16.105.134:27017/TodoApp'
-// } else if (env == 'test') {
-//   process.env.PORT = 3000
-//   process.env.MONGODB_URI = 'mongodb://172.16.105.134:27017/TodoAppTest'
 // }
