@@ -1,3 +1,5 @@
+'use strict'
+
 require('./config/config');
 
 const _ = require('lodash');
@@ -26,6 +28,26 @@ app.use((req, res, next) => {
 
 // ROUTES
 app.use('/api', require('./route/api'));
-  
+
+
+// middleware to deal with 404 error
+app.use((req, res, next) => {
+  let err = {
+    message: 'route does not exist',
+    status: 404
+  }
+  //let err = new Error('route does not exist');
+  //err.status(404);
+  next(err);  // send error to next middleware
+});
+
+// receives error from last middleware
+app.use((err, req, res, next) => {
+  // if error 404, sends back message 'route does not exist'
+  // otherwise it sends Murphy's message
+  console.log(err.status);
+  res.status(err.status || 500).send(err.message || `Don't force it; get a larger hammer.`);
+});
+
 // if use {app} get error in /server/bin/www.js
 module.exports = app;
