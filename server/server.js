@@ -14,9 +14,13 @@ var app = express();
 
 app.use(bodyParser.json()); // middleware
 
-// middleware, used to show where user is going...
+//middleware, used to show where user is going...
 app.use((req, res, next) => {
-  console.log('I was here: ', req.url)
+  // don't work under npm test
+  if(process.env.NODE_ENV !== "test") {
+    console.log('I was here: ', req.url)
+  }
+
   next();
 });
 
@@ -162,6 +166,9 @@ app.delete('/users/me/token', authenticate, (req, res) => {
     response.status(400).send();
   });
 });
+
+
+
 
 // if use {app} get error in /server/bin/www.js
 module.exports = app;
