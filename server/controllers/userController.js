@@ -7,17 +7,16 @@ const _ = require('lodash');
 let userController = {
 
   // CREATE A USER
-  create: (req, res) => {
-    var body = _.pick(req.body, ['email', 'password']);
-    var user = new User(body);
-
-    user.save().then(() => {
-      return user.generateAuthToken();
-    }).then((token) => {
+  create: async (req, res) => {
+    try {
+      const body = _.pick(req.body, ['email', 'password']);
+      const user = new User(body);
+      await user.save();
+      const token = await user.generateAuthToken();
       res.header('x-auth', token).send(user);
-    }).catch((e) => {
+    } catch (e) {
       res.status(400).send(e);
-    });
+    }
   },
 
   // VALIDATE A USER
@@ -26,25 +25,26 @@ let userController = {
   },
 
   // LOGIN A USER, CREATE A TOKEN
-  login: (req, res) => {
-    var body = _.pick(req.body, ['email', 'password']);
-
-    User.findByCredentials(body.email, body.password).then((user) => {
-      return user.generateAuthToken().then((token) => {
-        res.header('x-auth', token).send(user);
-      });
-    }).catch((e) => {
+  login: async (req, res) => {
+    try {
+      const body = _.pick(req.body, ['email', 'password']);
+      const user = await User.findByCredentials(body.email, body.password);
+      const token = await user.generateAuthToken();
+      res.header('x-auth', token).send(user);
+    } catch (e) {
       res.status(400).send();
-    });
+    }
   },
 
   // LOGOFF A USER, DELETE THE TOKEN
-  logoff: (req, res) => {
-    req.user.removeToken(req.token).then(() => {
+
+  logoff: async (req, res) => {
+    try {
+      await req.user.removeToken(req.token);
       res.status(200).send();
-    }, () => {
-      response.status(400).send();
-    });
+    } catch(e) {
+      res.status(400).send();
+    }
   }
 
 };  // end userController
